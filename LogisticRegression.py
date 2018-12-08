@@ -267,7 +267,7 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     
     Returns:
     d -- dictionary containing information about the model.
-    ""
+    """
     
     # initialize parameters with zeros 
     w, b = initialize_with_zeros(X_train.shape[0])
