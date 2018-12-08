@@ -41,6 +41,8 @@ print ("sanity check after reshaping: " + str(train_set_x_flatten[0:5,0]))
 train_set_x = train_set_x_flatten/255.
 test_set_x = test_set_x_flatten/255.
 
+#Sigmoid Function Starts
+
 def sigmoid(z):
     """
     Compute the sigmoid of z
@@ -54,12 +56,14 @@ def sigmoid(z):
 
     s = 1/(1+np.exp(-z)
     return s
-    
-#TestCase(OUTPUT:- sigmoid([0, 2]) = [ 0.5         0.88079708])
+           
+#Sigomid Function Ends
+      
+#TestCase(OUTPUT:- sigmoid([0, 2]) = [ 0.5  0.88079708])
 print ("sigmoid([0, 2]) = " + str(sigmoid(np.array([0,2]))))
 
 
-
+#Initialization Starts
 def initialize_with_zeros(dim):
     """
     This function creates a vector of zeros of shape (dim, 1) for w and initializes b to 0.
@@ -79,6 +83,10 @@ def initialize_with_zeros(dim):
     assert(isinstance(b, float) or isinstance(b, int))
     
     return w, b
+           
+#Initialization Ends
+           
+           
 #TestCase(OUTPUT:- w = [[ 0.], [ 0.]] ; b = 0)
 dim = 2
 w, b = initialize_with_zeros(dim)
@@ -86,8 +94,9 @@ print ("w = " + str(w))
 print ("b = " + str(b))
 
 
+#Backpropagation Starts
 
-def propagate(w, b, X, Y):
+ def propagate(w, b, X, Y):
     """
     Implement the cost function and its gradient for the propagation explained above
 
@@ -126,6 +135,8 @@ def propagate(w, b, X, Y):
              "db": db}
     
     return grads, cost
+     
+#Backpropagation Ends           
 
 #TestCase(OUTPUT:- dw = [[ 0.99845601] ,[ 2.39507239]]; db = 0.00145557813678; cost = 5.80154531939)
 w, b, X, Y = np.array([[1.],[2.]]), 2., np.array([[1.,2.,-1.],[3.,4.,-3.2]]), np.array([[1,0,1]])
@@ -134,8 +145,9 @@ print ("dw = " + str(grads["dw"]))
 print ("db = " + str(grads["db"]))
 print ("cost = " + str(cost))
 
+#GradientDescent Starts
 
-def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost = False):
+  def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost = False):
     """
     This function optimizes w and b by running a gradient descent algorithm
     
@@ -194,7 +206,9 @@ def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost = False):
              "db": db}
     
     return params, grads, costs
-    
+ 
+#GradientDescent Ends           
+           
 #TestCase(OUTPUT:-  w = [[ 0.19033591], [ 0.12259159]];b = 1.92535983008;dw = [[ 0.67752042], [ 1.41625495]]; db = 0.219194504541)
 
 params, grads, costs = optimize(w, b, X, Y, num_iterations= 100, learning_rate = 0.009, print_cost = False)
@@ -205,7 +219,7 @@ print ("dw = " + str(grads["dw"]))
 print ("db = " + str(grads["db"]))
 
 
-
+#Predicting Output
 
 def predict(w, b, X):
     '''
@@ -240,7 +254,7 @@ def predict(w, b, X):
     
     assert(Y_prediction.shape == (1, m))
     
-    return 
+    return Y_prediction
     
     
 #TestCase(OUTPUT:-  predictions = [[ 1.  1.  0.]] )
@@ -311,8 +325,6 @@ plt.ylabel('cost')
 plt.xlabel('iterations (per hundreds)')
 plt.title("Learning rate =" + str(d["learning_rate"]))
 plt.show()
-
-
 
 
 ###Choosing different-different learning rate
