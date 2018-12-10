@@ -226,7 +226,7 @@ sigmoid(12) = 0.999994
 #Your code should input z, compute the sigmoid (to get a) and then compute the cross entropy cost JJ. 
 #All this can be done using one call to tf.nn.sigmoid_cross_entropy_with_logits, which computes
  
-(−1 /m) * ∑(i = 1 to m)( y(i) * lognp.sigmoid(a[2](i)) + (1 − y(i)) * lognp.sigmoid((1 − a[2](i))))
+(−1 /m) * ∑(i = 1 to m)( y(i) * log(np.sigmoid(a[2](i)) + (1 − y(i))) * log(np.sigmoid((1 − a[2](i)))))
 
 def cost(logits, labels):
     """
@@ -906,17 +906,4 @@ Your algorithm predicts: y = 3
     #    Run the session to execute the graph
     #You can execute the graph multiple times as you've seen in model()
     #The backpropagation and optimization is automatically done when running the session on the "optimizer" object.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+               
