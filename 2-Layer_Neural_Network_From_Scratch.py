@@ -647,12 +647,4 @@ Accuracy for 50 hidden units: 89.5 %
     #Make a good use of a non-linear unit
     #Implemented forward propagation and backpropagation, and trained a neural network
     #See the impact of varying the hidden layer size, including overfitting.
-  
-    
-    
-    
-    
-    
-    
-    
-    
+ 
