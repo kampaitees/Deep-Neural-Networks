@@ -83,9 +83,9 @@ with tf.Session() as sess:
     
     
     
-    #Using Multi Layer Perceptron
+#Using Multi Layer Perceptron
     
-    import keras
+import keras
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
