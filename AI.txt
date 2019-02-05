@@ -1,3 +1,5 @@
+DIFFERENCE BETWEEN ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING AND DEEP LEARNING
+
 It’s almost harder to understand all the acronyms that surround artificial intelligence (AI) than the underlying technology. Couple that with the different disciplines of AI as well as application domains and it’s easy for the average person to tune out and move on.
 
 Below we attempt to explain the important parts of artificial intelligence and how they fit together. At Sonix we are specifically focused on automatic speech recognition so we explain the key technologies with that in mind.
