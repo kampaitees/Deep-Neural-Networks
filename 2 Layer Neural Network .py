@@ -208,12 +208,12 @@ def forward_propagation(X, parameters):
     cache -- a dictionary containing "Z1", "A1", "Z2" and "A2"
     """
     # Retrieve each parameter from the dictionary "parameters"
-    ### START CODE HERE ### (≈ 4 lines of code)
+    
     W1 = parameters['W1']
     b1 = parameters['b1']
     W2 = parameters['W2']
     b2 = parameters['b2']
-    ### END CODE HERE ###
+
     
     # Implement Forward Propagation to calculate A2 (probabilities)
    
@@ -372,20 +372,20 @@ def update_parameters(parameters, grads, learning_rate = 1.2):
     parameters -- python dictionary containing your updated parameters 
     """
     # Retrieve each parameter from the dictionary "parameters"
-    ### START CODE HERE ### (≈ 4 lines of code)
+    
     W1 = parameters["W1"]
     b1 = parameters["b1"]
     W2 = parameters["W2"]
     b2 = parameters["b2"]
-    ### END CODE HERE ###
+   
     
     # Retrieve each gradient from the dictionary "grads"
-    ### START CODE HERE ### (≈ 4 lines of code)
+  
     dW1 = grads["dW1"]
     db1 = grads["db1"]
     dW2 = grads["dW2"]
     db2 = grads["db2"]
-    ## END CODE HERE ###
+   
     
     # Update rule for each parameter
    
