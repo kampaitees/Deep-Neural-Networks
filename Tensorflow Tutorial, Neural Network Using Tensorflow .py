@@ -11,9 +11,6 @@ from tf_utils import load_dataset, random_mini_batches, convert_to_one_hot, pred
 %matplotlib inline
 np.random.seed(1)
 
-#Now that you have imported the library, we will walk you through its different applications. 
-#You will start with an example, where we compute for you the loss of one training example. 
-
 
 #Computing the following loss using tensorflow
 #Loss(y_hat, y) = np.power((y_hat - y),2)
@@ -31,19 +28,6 @@ with tf.Session() as session:                    # Create a session and print th
 
 #Output = 9    
     
-'''Writing and running programs in TensorFlow has the following steps:
-
-    Create Tensors (variables) that are not yet executed/evaluated.
-    Write operations between those Tensors.
-    Initialize your Tensors.
-    Create a Session.
-    Run the Session. This will run the operations you'd written above.
-
-Therefore, when we created a variable for the loss, we simply defined the loss as a function of other quantities
-but did not evaluate its value. To evaluate it, we had to run init=tf.global_variables_initializer(). 
-That initialized the loss variable, and in the last line we were finally able to evaluate the value of loss and print its value.'''
-
-
 a = tf.constant(2)
 b = tf.constant(10)
 c = tf.multiply(a,b)
@@ -52,21 +36,9 @@ print(c)
 #Output
 #Tensor("Mul:0", shape=(), dtype=int32)
 
-#As expected, you will not see 20! You got a tensor saying that the result is a tensor that does not have the 
-#shape attribute, and is of type "int32". All you did was put in the 'computation graph', but you have not run
-#this computation yet. In order to actually multiply the two numbers, you will have to create a session and run it.
-
-
-sess = tf.Session()
 print(sess.run(c))
 
 #Output = 20
-
-#Great! To summarize, remember to initialize your variables, create a session and run the operations inside the session.
-
-#Next, you'll also have to know about placeholders. A placeholder is an object whose value you can specify only later. 
-#To specify values for a placeholder, you can pass in values by using a "feed dictionary" (feed_dict variable). 
-#Below, we created a placeholder for x. This allows us to pass in a number later when we run the session.
 
 x = tf.placeholder(tf.int64, name = 'x')
 print(sess.run(2 * x, feed_dict = {x: 3}))
@@ -75,24 +47,6 @@ sess.close()
 #Ouptut = 6
 
 
-#When you first defined x you did not have to specify a value for it. A placeholder is simply a variable that you 
-#will assign data to only later, when running the session. We say that you feed data to these placeholders when
-#running the session.
-
-#Here's what's happening: When you specify the operations needed for a computation, you are telling TensorFlow how 
-#to construct a computation graph. The computation graph can have some placeholders whose values you will specify 
-#only later. Finally, when you run the session, you are telling TensorFlow to execute the computation graph.
-
-
-
-
-#1.1 - Linear function
-
-#Lets start this programming exercise by computing the following equation: Y=WX+bY=WX+b, where WW and XX are random
-#matrices and b is a random vector.
-
-#Exercise: Compute WX+bWX+b where W,XW,X, and bb are drawn from a random normal distribution. W is of shape (4, 3), 
-#X is (3,1) and b is (4,1). As an example, here is how you would define a constant X that has shape (3,1):
 
 #X = tf.constant(np.random.randn(3,1), name = "X")
 
@@ -133,24 +87,8 @@ def linear_function():
 
 print( "result = " + str(linear_function()))
 
-#Output := result 	[[-2.15657382] [ 2.95891446] [-1.08926781] [-0.84538042]] 
-
-
-
-#1.2 - Computing the sigmoid
-
-#Great! You just implemented a linear function. Tensorflow offers a variety of commonly used neural network 
-#functions like tf.sigmoid and tf.softmax. For this exercise lets compute the sigmoid function of an input.
-
-#You will do this exercise using a placeholder variable x. When running the session, you should use the feed 
-#dictionary to pass in the input z. In this exercise, you will have to (i) create a placeholder x, (ii) define 
-#the operations needed to compute the sigmoid using tf.sigmoid, and then (iii) run the session.
-
-#Exercise : Implement the sigmoid function below. You should use the following:
-
-#    tf.placeholder(tf.float32, name = "...")
-#    tf.sigmoid(...)
-#    sess.run(..., feed_dict = {x: z})
+#Output := result 	[[-2.15657382] [ 2.95891446] [-1.08926781] [-0.84538042]]
+               
 
 #Note that there are two typical ways to create and use sessions in tensorflow:
 
@@ -201,32 +139,8 @@ sigmoid(0) = 0.5
 sigmoid(12) = 0.999994
 
 
-
-# To summarize, you how know how to:
-
-    #Create placeholders
-    #Specify the computation graph corresponding to operations you want to compute
-    #Create the session
-    #Run the session, using a feed dictionary if necessary to specify placeholder variables' values.
-    
     
 #1.3 - Computing the Cost
-
-#You can also use a built-in function to compute the cost of your neural network. So instead of needing 
-#to write code to compute this as a function of a[2](i)a[2](i) and y(i)y(i) for i=1...m:
-
-#J = (−1 /m) * ∑(i = 1 to m)( y(i) * loga[2](i) + (1 − y(i)) * log(1 − a[2](i)))
-
-#you can do it in one line of code in tensorflow!
-
-#Exercise: Implement the cross entropy loss. The function you will use is:
-
- #   tf.nn.sigmoid_cross_entropy_with_logits(logits = ...,  labels = ...)
-
-#Your code should input z, compute the sigmoid (to get a) and then compute the cross entropy cost JJ. 
-#All this can be done using one call to tf.nn.sigmoid_cross_entropy_with_logits, which computes
- 
-(−1 /m) * ∑(i = 1 to m)( y(i) * log(np.sigmoid(a[2](i)) + (1 − y(i))) * log(np.sigmoid((1 − a[2](i)))))
 
 def cost(logits, labels):
     """
@@ -285,11 +199,6 @@ cost 	 = [ 1.00538719 1.03664088 0.41385433 0.39956614]
 
     #tf.one_hot(labels, depth, axis)
 
-#Exercise: Implement the function below to take one vector of labels and the total number of classes CC, and 
-#return the one hot encoding. Use tf.one_hot() to do this.
-
-
-
 def one_hot_matrix(labels, C):
     """
     Creates a matrix where the i-th row corresponds to the ith class number and the jth column
@@ -339,17 +248,6 @@ one_hot = [[ 0.  0.  0.  0.  0.]
  
  
  #1.5 - Initialize with zeros and ones
-
-#Now you will learn how to initialize a vector of zeros and ones. The function you will be calling is tf.ones(). 
-#To initialize with zeros you could use tf.zeros() instead. These functions take in a shape and return an array 
-#of dimension shape full of zeros and ones respectively.
-
-#Exercise: Implement the function below to take in a shape and to return an array (of the shape's dimension of ones).
-
-    #tf.ones(shape)
-
-
-
 def ones(shape):
     """
     Creates an array of ones of dimension shape
@@ -385,20 +283,6 @@ ones = [ 1.  1.  1.]
 
 
 #2 - Building your first neural network in tensorflow
-
-#In this part of the assignment you will build a neural network using tensorflow. Remember that there are
-#two parts to implement a tensorflow model:
-
-    #Create the computation graph
-    #Run the graph
-
-#Let's delve into the problem you'd like to solve!
-#2.0 - Problem statement: SIGNS Dataset
-
-#One afternoon, with some friends we decided to teach our computers to decipher sign language. 
-#We spent a few hours taking pictures in front of a white wall and came up with the following dataset. 
-#It's now your job to build an algorithm that would facilitate communications from a speech-impaired person 
-#to someone who doesn't understand sign language.
 
  #   Training set: 1080 pictures (64 by 64 pixels) of signs representing numbers from 0 to 5 (180 pictures per number).
  #   Test set: 120 pictures (64 by 64 pixels) of signs representing numbers from 0 to 5 (20 pictures per number).
@@ -458,11 +342,6 @@ Y_test shape: (6, 120)
 #Note that 12288 comes from 64×64×364×64×3. Each image is square, 64 by 64 pixels, and 3 is for 
 #the RGB colors. Please make sure all these shapes make sense to you before continuing.
 
-#Your goal is to build an algorithm capable of recognizing a sign with high accuracy. To do so, 
-#you are going to build a tensorflow model that is almost the same as one you have previously built 
-#in numpy for cat recognition (but now using a softmax output). It is a great occasion to compare your 
-#numpy implementation to the tensorflow one.
-
 #The model is LINEAR -> RELU -> LINEAR -> RELU -> LINEAR -> SOFTMAX. The SIGMOID output layer has been 
 #converted to a SOFTMAX. A SOFTMAX layer generalizes SIGMOID to when there are more than two classes.
 
@@ -471,9 +350,6 @@ Y_test shape: (6, 120)
 
 #Your first task is to create placeholders for X and Y. This will allow you to later pass your training
 #data in when you run your session.
-
-#Exercise: Implement the function below to create the placeholders in tensorflow.
-
 
 def create_placeholders(n_x, n_y):
     """
@@ -511,18 +387,8 @@ Y = Tensor("Y:0", shape=(6, ?), dtype=float32)
 
 
 #2.2 - Initializing the parameters
-
-#Your second task is to initialize the parameters in tensorflow.
-
-#Exercise: Implement the function below to initialize the parameters in tensorflow. You are going 
-#use Xavier Initialization for weights and Zero Initialization for biases. The shapes are given below. 
-#As an example, to help you, for W1 and b1 you could use:
-
 #W1 = tf.get_variable("W1", [25,12288], initializer = tf.contrib.layers.xavier_initializer(seed = 1))
 #b1 = tf.get_variable("b1", [25,1], initializer = tf.zeros_initializer())
-
-#Please use seed = 1 to make sure your results match ours.
-
 
 def initialize_parameters():
     """
@@ -540,7 +406,7 @@ def initialize_parameters():
     
     tf.set_random_seed(1)                   # so that your "random" numbers match ours
         
-    ### START CODE HERE ### (approx. 6 lines of code)
+ 
     W1 = tf.get_variable("W1",[25,12288],initializer=tf.contrib.layers.xavier_initializer(seed = 1))
     b1 = tf.get_variable("b1",[25,1], initializer = tf.zeros_initializer())
     W2 = tf.get_variable("W2",[12,25],initializer=tf.contrib.layers.xavier_initializer(seed = 1))
@@ -548,7 +414,7 @@ def initialize_parameters():
     W3 = tf.get_variable("W3",[6,12],initializer=tf.contrib.layers.xavier_initializer(seed = 1))
     b3 = tf.get_variable("b3",[6,1], initializer = tf.zeros_initializer())
    
-    ### END CODE HERE ###
+
 
     parameters = {"W1": W1,
                   "b1": b1,
@@ -578,18 +444,9 @@ b2 = <tf.Variable 'b2:0' shape=(12, 1) dtype=float32_ref>
 
 #2.3 - Forward propagation in tensorflow
 
-#You will now implement the forward propagation module in tensorflow. The function will take in a 
-#dictionary of parameters and it will complete the forward pass. The functions you will be using are:
-
  #   tf.add(...,...) to do an addition
  #   tf.matmul(...,...) to do a matrix multiplication
  #   tf.nn.relu(...) to apply the ReLU activation
-
-#Question: Implement the forward pass of the neural network. We commented for you the numpy equivalents 
-#so that you can compare the tensorflow implementation to numpy. It is important to note that the forward
-#propagation stops at z3. The reason is that in tensorflow the last linear layer output is given as input 
-#to the function computing the loss. Therefore, you don't need a3!
-
 
 def forward_propagation(X, parameters):
     """
@@ -635,24 +492,7 @@ with tf.Session() as sess:
 Z3 = Tensor("Add_2:0", shape=(6, ?), dtype=float32)
 
 
-#You may have noticed that the forward propagation doesn't output any cache. You will understand 
-#why below, when we get to brackpropagation.
-
-
 #2.4 Compute cost
-
-#As seen before, it is very easy to compute the cost using:
-
-#tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = ..., labels = ...))
-
-#Question: Implement the cost function below.
- 
- #   It is important to know that the "logits" and "labels" inputs of tf.nn.softmax_cross_entropy_with_logits
- #    are expected to be of shape (number of examples, num_classes). We have thus transposed Z3 and Y for you.
- #  Besides, tf.reduce_mean basically does the summation over the examples.
- 
- 
- 
  def compute_cost(Z3, Y):
     """
     Computes the cost
@@ -688,33 +528,7 @@ with tf.Session() as sess:
  cost = Tensor("Mean:0", shape=(), dtype=float32)
 
     
-#2.5 - Backward propagation & parameter updates
-
-#This is where you become grateful to programming frameworks. All the backpropagation and the 
-#parameters update is taken care of in 1 line of code. It is very easy to incorporate this line in the model.
-
-#After you compute the cost function. You will create an "optimizer" object. You have to call this object 
-#along with the cost when running the tf.session. When called, it will perform an optimization on the given 
-#cost with the chosen method and learning rate.
-
-#For instance, for gradient descent the optimizer would be:
- 
-#optimizer = tf.train.GradientDescentOptimizer(learning_rate = learning_rate).minimize(cost)
-
-#To make the optimization you would do:
-
-#_ , c = sess.run([optimizer, cost], feed_dict={X: minibatch_X, Y: minibatch_Y})
-
-#This computes the backpropagation by passing through the tensorflow graph in the reverse order. From cost to inputs.
-
-#Note When coding, we often use _ as a "throwaway" variable to store values that we won't need to use later.
-#Here, _ takes on the evaluated value of optimizer, which we don't need (and c takes the value of the cost variable).
-#2.6 - Building the model
-
-#Now, you will bring it all together!
-
-#Exercise: Implement the model. You will be calling the functions you had previously implemented.
-    
+#2.5 - Backward propagation & parameter updates    
 def model(X_train, Y_train, X_test, Y_test, learning_rate = 0.0001,
           num_epochs = 1500, minibatch_size = 32, print_cost = True):
     """
@@ -742,29 +556,29 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate = 0.0001,
     costs = []                                        # To keep track of the cost
     
     # Create Placeholders of shape (n_x, n_y)
-    ### START CODE HERE ### (1 line)
+
     X, Y = create_placeholders(n_x, n_y)
-    ### END CODE HERE ###
+
 
     # Initialize parameters
-    ### START CODE HERE ### (1 line)
+   
     parameters = initialize_parameters()
-    ### END CODE HERE ###
+
     
     # Forward propagation: Build the forward propagation in the tensorflow graph
-    ### START CODE HERE ### (1 line)
+
     Z3 = forward_propagation(X, parameters)
-    ### END CODE HERE ###
+ 
     
     # Cost function: Add cost function to tensorflow graph
-    ### START CODE HERE ### (1 line)
+   
     cost = compute_cost(Z3, Y)
-    ### END CODE HERE ###
+   
     
     # Backpropagation: Define the tensorflow optimizer. Use an AdamOptimizer.
-    ### START CODE HERE ### (1 line)
+ 
     optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
-    ### END CODE HERE ###
+
     
     # Initialize all the variables
     init = tf.global_variables_initializer()
@@ -790,9 +604,9 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate = 0.0001,
                 
                 # IMPORTANT: The line that runs the graph on a minibatch.
                 # Run the session to execute the "optimizer" and the "cost", the feedict should contain a minibatch for (X,Y).
-                ### START CODE HERE ### (1 line)
+             
                 _ , minibatch_cost = sess.run([optimizer, cost], feed_dict={X: minibatch_X, Y: minibatch_Y})
-                ### END CODE HERE ###
+              
                 
                 epoch_cost += minibatch_cost / num_minibatches
 
@@ -823,12 +637,6 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate = 0.0001,
         print("Test Accuracy:", accuracy.eval({X: X_test, Y: Y_test}))
         
         return parameters
-        
-  
-#Run the following cell to train your model! On our machine it takes about 5 minutes. Your
-#"Cost after epoch 100" should be 1.016458. If it's not, don't waste time; interrupt the training 
-#by clicking on the square (⬛) in the upper bar of the notebook, and try to correct your code. If it is
-#the correct cost, take a break and come back in 5 minutes!
 
 
 parameters = model(X_train, Y_train, X_test, Y_test)
@@ -853,57 +661,3 @@ Cost after epoch 1400: 0.052228
 Parameters have been trained!
 Train Accuracy: 0.999074
 Test Accuracy: 0.716667
-
-
-
-#Insights:
-
-    #Your model seems big enough to fit the training set well. However, given the difference 
-    #between train and test accuracy, you could try to add L2 or dropout regularization to reduce overfitting.
-    #Think about the session as a block of code to train the model. Each time you run the session on a minibatch, 
-    #it trains the parameters. In total you have run the session a large number of times (1500 epochs) until you 
-    #obtained well trained parameters.
-
-#2.7 - Test with your own image (optional / ungraded exercise)
-
-#Congratulations on finishing this assignment. You can now take a picture of your hand and see the output of your model. 
-#To do that:
-
-#1. Click on "File" in the upper bar of this notebook, then click "Open" to go on your Coursera Hub.
-#2. Add your image to this Jupyter Notebook's directory, in the "images" folder
-#3. Write your image's name in the following code
-#4. Run the code and check if the algorithm is right!
-
-import scipy
-from PIL import Image
-from scipy import ndimage
-
-## START CODE HERE ## (PUT YOUR IMAGE NAME) 
-my_image = "thumbs_up.jpg"
-## END CODE HERE ##
-
-# We preprocess your image to fit your algorithm.
-fname = "images/" + my_image
-image = np.array(ndimage.imread(fname, flatten=False))
-my_image = scipy.misc.imresize(image, size=(64,64)).reshape((1, 64*64*3)).T
-my_image_prediction = predict(my_image, parameters)
-
-plt.imshow(image)
-print("Your algorithm predicts: y = " + str(np.squeeze(my_image_prediction)))
-
-#Output 
-Your algorithm predicts: y = 3
-
-
-# What you should remember:
-
-    #Tensorflow is a programming framework used in deep learning
-    #The two main object classes in tensorflow are Tensors and Operators.
-    #When you code in tensorflow you have to take the following steps:
-    #    Create a graph containing Tensors (Variables, Placeholders ...) and Operations (tf.matmul, tf.add, ...)
-    #    Create a session
-    #    Initialize the session
-    #    Run the session to execute the graph
-    #You can execute the graph multiple times as you've seen in model()
-    #The backpropagation and optimization is automatically done when running the session on the "optimizer" object.
-               
